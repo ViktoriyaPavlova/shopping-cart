@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid'
 import { generateProductCardHTML } from './productCard'
-import { form } from '../selectors/selectors'
+import { basketList, form, productList} from '../selectors/selectors'
 
 let PRODDUCTS = [] // Переменная для хранения данных о продуктах.
 
@@ -12,9 +12,9 @@ export async function loadJSON() {
 
     console.log('Данные из db.json:', PRODDUCTS)
 
-    if (Array.isArray(PRODDUCTS)) PRODDUCTS.forEach((product) => generateProductCardHTML(product))
+    if (Array.isArray(PRODDUCTS)) PRODDUCTS.forEach((product) => generateProductCardHTML(product, productList))
   } catch (error) {
-    console.error('Ошибка загрузки данных:', error)
+    // console.error('Ошибка загрузки данных:', error)
   }
 }
 
@@ -31,6 +31,7 @@ export function addProductToBasket(event) {
 
   if (product) {
     // Добавляем товар в корзину и т.д.
+    generateProductCardHTML(product, basketList)
     console.log(product)
   } else {
     console.error(`Товар с ID ${id} не найден`)
@@ -97,7 +98,7 @@ export const handleFormSubmit = async (event) => {
       PRODDUCTS.push(newProduct)
 
       // Вставляем новую карточку товара в HTML
-      generateProductCardHTML(newProduct)
+      generateProductCardHTML(newProduct, productList)
     } else {
       console.error('Ошибка при добавлении товара:', response.statusText)
     }

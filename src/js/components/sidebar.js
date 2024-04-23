@@ -29,6 +29,7 @@ export class Sidebar {
   open() {
     this.sidebar.showModal()
     this.initialFormValues = this.getFormValues()
+    document.body.style.overflow = 'hidden'; // вертикальный скролл прячется при открытии сайдбара
   }
 
   /**
@@ -37,6 +38,7 @@ export class Sidebar {
   close() {
     this.sidebar.close()
     this.clearFields()
+    document.body.style.overflow = ''; //вертикальный скролл появляется при закрытии сайдбара
   }
 
   /**
